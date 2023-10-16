@@ -7,40 +7,44 @@
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	char c, specifier;
+	int character, count = 0;
 	const char *string;
 	va_list args;
 
 	va_start(args, format);
-	while ((c = *format++))
+	while (*format)
 	{
-		if (c != '%')
-			_putchar(c);
+		if (*format != '%')
+		{
+			_putchar(*format);
 			count++;
+		}
 		else
 		{
-			specifier = *format++;
-			if (specifier == 'c')
-				count += _putchar(va_arg(args, int));
-			else  if (specifier == 's')
+			format++;
+			if (*format == 'c')
 			{
-				string = va_arg(args, char*);
-				if (string)
+				character = va_arg(args, int);
+				_putchar(character);
+				count++;
+			}
+			else  if (*format == 's')
+			{
+				string = va_arg(args, const char *);
+				while (*string)
 				{
-
-					while (*string)
-						_putchar(*string++);
-						count++;
+					_putchar(*string);
+					count++;
+					string++;
 				}
-				else
-					count += _putchar("(null)");
-				else if (specifier == '%')
-					count += _putchar('%');
-				else
-					count += putchar('%') + _putchar(specifier);
+			}
+			else if (*format == '%')
+			{
+				_putchar('%');
+				count++;
 			}
 		}
+		format++;
 	}
 	va_end(args);
 	return (count);
