@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /**
- * struct flag - struct containing flags
+ * struct flags - struct containing flags
  * @add: flag for +
  * @space: flag for ' '
  * @hash: flag for '#'
