@@ -8,19 +8,19 @@
  *
  * Return: result string
  */
-char *conv(unsigned int numb, int base, int lowercase);
+char *conv(unsigned long int numb, int base, int lowercase)
 {
-	const char *hex_chars = (lowercase) ? "0123456789abcdef" :
-		"0123456789ABCDEF";
+	const char *hex_chars = (lowercase) ? "0123456789abcdef"
+		: "0123456789ABCDEF";
 	static char buffer[50];
 	char *ptr = &buffer[49];
 
 	*ptr = '\0';
 
 	do {
-		*--ptr = hex_chars[num % base];
-		num /= base;
-	} while (num != 0);
+		*--ptr = hex_chars[numb % base];
+		numb /= base;
+	} while (numb != 0);
 
 	return (ptr);
 }

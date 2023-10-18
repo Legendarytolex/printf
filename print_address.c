@@ -9,9 +9,11 @@
  */
 int print_address(va_list l, flags_t *f)
 {
-	unsigned long int p = va_arg(1, unsigned long int);
+	unsigned long int p = va_arg(l, unsigned long int);
 	char *str;
 	int count;
+
+	(void)f;
 
 	if (!p)
 	{

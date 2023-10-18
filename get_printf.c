@@ -6,11 +6,11 @@
  *
  * Return: a pointer to the printed function
  */
-int (*get_print(char s))(va_list, flag_t *)
+int (*get_print(char s))(va_list, flags_t *)
 {
-	int i;
+	register int i;
 
-	static ph func_arr[] = {
+	ph func_arr[] = {
 		{'i', print_integer},
 		{'s', print_str},
 		{'c', print_character},
@@ -22,12 +22,13 @@ int (*get_print(char s))(va_list, flag_t *)
 		{'o', print_octa},
 		{'R', print_rot13},
 		{'r', print_rev},
-		{'S', print_ big_string},
+		{'S', print_big_string},
 		{'p', print_address},
 		{'%', print_percent}
 	};
+	int flags = 14;
 
-	for (i = 0; i < sizeof(func_arr) / sizeof(func_arr[0]); i++)
+	for (i = 0; i < flags; i++)
 	{
 		if (func_arr[i].s == s)
 		{

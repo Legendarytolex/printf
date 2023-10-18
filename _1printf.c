@@ -1,4 +1,5 @@
 #include "main.h"
+#include <limits.h>
 
 /**
  * _printf - A function that produces output according to a format
@@ -7,44 +8,37 @@
  */
 int _printf(const char *format, ...)
 {
-	int character, count = 0;
-	const char *string;
+	int (*pfunc)(va_list, flags_t *), count = 0;
+	const char *s;
 	va_list args;
+	flags_t flags = {0, 0, 0};
 
 	va_start(args, format);
-	while (*format)
+	if (!format)
+		return (-1);
+	for (s = format; *s; s++)
 	{
-		if (*format != '%')
+		if (*s == '%')
 		{
-			_putchar(*format);
-			count++;
-		}
-		else
-		{
-			format++;
-			if (*format == 'c')
+			s++;
+			if (*s == '%')
+				count += _putchar('%');
+			else
 			{
-				character = va_arg(args, int);
-				_putchar(character);
-				count++;
-			}
-			else  if (*format == 's')
-			{
-				string = va_arg(args, const char *);
-				while (*string)
+				while (get_flag(*s, &flags))
+					s++;
+				pfunc = get_print(*s);
+				if (pfunc)
+					count += pfunc(args, &flags);
+				else
 				{
-					_putchar(*string);
-					count++;
-					string++;
+					count += _putchar('%');
+					count += _putchar(*s);
 				}
 			}
-			else if (*format == '%')
-			{
-				_putchar('%');
-				count++;
-			}
 		}
-		format++;
+		else
+			count += _putchar(*s);
 	}
 	va_end(args);
 	return (count);

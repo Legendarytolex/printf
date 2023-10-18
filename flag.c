@@ -7,7 +7,7 @@
  *
  * Return: 1 if flag is on else 0
  */
-int get_flag(char s, flag_t *f)
+int get_flag(char s, flags_t *f)
 {
 	int i = 0;
 
@@ -27,5 +27,5 @@ int get_flag(char s, flag_t *f)
 		i = 1;
 	}
 
-	return (1);
+	return (i);
 }
