@@ -32,7 +32,7 @@ typedef struct print_handler
 /*prototypes to print bases*/
 int print_base(va_list l, flags_t *f, int base, int uppercase);
 int print_hexa(va_list l, flags_t *f);
-int print_hexa_big(va_list l,flags_t *f);
+int print_hexa_big(va_list l, flags_t *f);
 int print_bin(va_list l, flags_t *f);
 int print_octa(va_list l, flags_t *f);
 
